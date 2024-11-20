@@ -62,15 +62,6 @@ public class Machine {
         checkRemains(userMoney);
     }
 
-    private boolean checkPurchasePossible(Money userMoney) {
-        for (Item item : items) {
-            if (item.getMoney() <= userMoney.getMoney()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public void sellItem(Money userMoney, String itemName) {
         validateItemName(itemName);
         for (Item item : items) {
