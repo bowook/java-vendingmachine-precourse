@@ -12,6 +12,14 @@ public class Money {
         this.money = tempMoney;
     }
 
+    public void subtract(int money) {
+        this.money -= money;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
     private void validateMoneyRange(int tempMoney) {
         if (tempMoney < 0) {
             throw CustomException.from(ErrorMessage.NUMBER_INPUT_RANGE_ERROR);
@@ -26,11 +34,4 @@ public class Money {
         }
     }
 
-    public void subtract(int money) {
-        this.money -= money;
-    }
-
-    public int getMoney() {
-        return money;
-    }
 }

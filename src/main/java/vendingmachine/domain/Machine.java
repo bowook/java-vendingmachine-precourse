@@ -30,6 +30,13 @@ public class Machine {
         items.add(new Item(itemName, itemPrice, itemQuantity));
     }
 
+    public String initStatus() {
+        return String.format("500원 - %d개\n", fiveHundred)
+                + String.format("100원 - %d개\n", hundred)
+                + String.format("50원 - %d개\n", fifty)
+                + String.format("10원 - %d개\n", ten);
+    }
+
     public boolean isPurchasePossible(Money userMoney) {
         for (Item item : items) {
             if (userMoney.getMoney() >= item.getMoney()) {
@@ -53,6 +60,21 @@ public class Machine {
             return;
         }
         checkRemains(userMoney);
+    }
+
+    public void sellItem(Money userMoney, String itemName) {
+        validateItemName(itemName);
+        for (Item item : items) {
+            if (userMoney.getMoney() >= item.getMoney()) {
+                item.subtract();
+                userMoney.subtract(item.getMoney());
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return remainFiveHundred() + remainHundred() + remainFifty() + remainTen();
     }
 
     private void checkRemains(Money userMoney) {
@@ -116,16 +138,6 @@ public class Machine {
                 + (Coin.COIN_50.getAmount() * fifty) + (Coin.COIN_10.getAmount() * ten);
     }
 
-    public void sellItem(Money userMoney, String itemName) {
-        validateItemName(itemName);
-        for (Item item : items) {
-            if (userMoney.getMoney() >= item.getMoney()) {
-                item.subtract();
-                userMoney.subtract(item.getMoney());
-            }
-        }
-    }
-
     private void validateItemName(String itemName) {
         for (Item item : items) {
             if (item.getName().equals(itemName)) {
@@ -133,11 +145,6 @@ public class Machine {
             }
         }
         throw CustomException.from(ErrorMessage.ITEM_NAME_NOT_IN_MACHINE);
-    }
-
-    @Override
-    public String toString() {
-        return remainFiveHundred() + remainHundred() + remainFifty() + remainTen();
     }
 
     private String remainTen() {
@@ -166,13 +173,6 @@ public class Machine {
             return String.format("500원 - %d개\n", returnFiveHundred);
         }
         return "";
-    }
-
-    public String initStatus() {
-        return String.format("500원 - %d개\n", fiveHundred)
-                + String.format("100원 - %d개\n", hundred)
-                + String.format("50원 - %d개\n", fifty)
-                + String.format("10원 - %d개\n", ten);
     }
 
     private void classification(Money initMoney) {
@@ -234,4 +234,5 @@ public class Machine {
         }
         return coins;
     }
+
 }

@@ -14,7 +14,6 @@ public class InputView {
         return consoleRead();
     }
 
-
     public Money readInputMoney() {
         System.out.println();
         System.out.println(USER_INPUT_MONEY);
@@ -38,4 +37,5 @@ public class InputView {
     public void consoleClose() {
         Console.close();
     }
+
 }

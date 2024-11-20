@@ -10,4 +10,5 @@ public class CustomException extends IllegalArgumentException {
     public static CustomException from(ErrorMessage errorMessage) {
         return new CustomException(errorMessage);
     }
+
 }

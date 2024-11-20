@@ -15,14 +15,6 @@ public class Item {
         this.money = money;
     }
 
-    private int validateQuantity(String quantity) {
-        try {
-            return Integer.parseInt(quantity);
-        } catch (NumberFormatException numberFormatException) {
-            throw CustomException.from(ErrorMessage.ITEM_QUANTITY_IS_NOT_NUMBER);
-        }
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -39,6 +31,14 @@ public class Item {
         return money.getMoney();
     }
 
+    private int validateQuantity(String quantity) {
+        try {
+            return Integer.parseInt(quantity);
+        } catch (NumberFormatException numberFormatException) {
+            throw CustomException.from(ErrorMessage.ITEM_QUANTITY_IS_NOT_NUMBER);
+        }
+    }
+
     private void validateMoney(Money money) {
         if (money.getMoney() < 100) {
             throw CustomException.from(ErrorMessage.ITEM_PRICE_MIN_PRICE);
@@ -47,6 +47,5 @@ public class Item {
             throw CustomException.from(ErrorMessage.ITEM_PRICE_DIVIDE_CONDITION);
         }
     }
-
 
 }
